@@ -6,7 +6,11 @@ import {
 } from '@nestjs/websockets';
 import { Server } from 'socket.io';
 
-@WebSocketGateway()
+export const NotificationsGatewayPort = Number.parseInt(
+  process.env.NOTIFICATIONS_WS_PORT ?? '3002',
+);
+
+@WebSocketGateway(NotificationsGatewayPort)
 export class NotificationsGateway {
   @WebSocketServer()
   server: Server;
