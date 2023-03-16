@@ -10,13 +10,17 @@ export const NotificationsGatewayPort = Number.parseInt(
   process.env.NOTIFICATIONS_WS_PORT ?? '3002',
 );
 
-@WebSocketGateway(NotificationsGatewayPort)
+@WebSocketGateway(NotificationsGatewayPort, {
+  cors: {
+    origin: '*',
+  },
+})
 export class NotificationsGateway {
   @WebSocketServer()
   server: Server;
 
   @SubscribeMessage('notifications')
   listenForMessages(@MessageBody() data: string) {
-    this.server.sockets.emit('receive_message', data);
+    this.server.sockets.emit('notifications', data);
   }
 }
