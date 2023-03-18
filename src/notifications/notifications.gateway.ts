@@ -11,6 +11,7 @@ export const NotificationsGatewayPort = Number.parseInt(
 );
 
 @WebSocketGateway(NotificationsGatewayPort, {
+  path: "/ws/",
   cors: {
     origin: '*',
   },

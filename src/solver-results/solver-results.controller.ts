@@ -9,7 +9,7 @@ import { NotificationsGatewayPort } from 'src/notifications/notifications.gatewa
 export class SolverResultsController {
   private socket: Socket;
   constructor(private readonly solverResultsService: SolverResultsService) {
-    this.socket = io(`ws://127.0.0.1:${NotificationsGatewayPort}`);
+    this.socket = io(`ws://127.0.0.1:${NotificationsGatewayPort}`, { path: '/ws/' });
   }
 
   @Get()
