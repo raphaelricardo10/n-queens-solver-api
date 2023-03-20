@@ -11,7 +11,7 @@ export const NotificationsGatewayPort = Number.parseInt(
 );
 
 @WebSocketGateway(NotificationsGatewayPort, {
-  path: "/ws/",
+  path: '/ws/',
   cors: {
     origin: '*',
   },
@@ -22,6 +22,7 @@ export class NotificationsGateway {
 
   @SubscribeMessage('notifications')
   listenForMessages(@MessageBody() data: string) {
+    console.log(`Received notification: ${data}`);
     this.server.sockets.emit('notifications', data);
   }
 }
