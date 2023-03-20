@@ -3,13 +3,19 @@ import { Controller, Get } from '@nestjs/common';
 import { SolverResult } from './solver-results.interface';
 import { SolverResultsService } from './solver-results.service';
 import { PushNotification } from 'src/notifications/notifications.interface';
-import { NotificationsGatewayPort } from 'src/notifications/notifications.gateway';
 
 @Controller('solver-results')
 export class SolverResultsController {
   private socket: Socket;
   constructor(private readonly solverResultsService: SolverResultsService) {
-    this.socket = io(`ws://127.0.0.1:${NotificationsGatewayPort}`, { path: '/ws/' });
+    this.socket = io(
+      `${Boolean(process.env.USE_HTTPS) ? 'https' : 'http'}://127.0.0.1:${
+        process.env.PORT ?? 3001
+      }`,
+      {
+        path: '/ws/notifications/',
+      },
+    );
   }
 
   @Get()
