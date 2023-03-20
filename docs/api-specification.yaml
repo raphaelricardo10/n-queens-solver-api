@@ -1,0 +1,35 @@
+swagger: 2.0
+info:
+  version: 1.0.0
+  title: N Queens Problem's Solver API
+  description: A simple API to manage the solver information and results
+host: solver-api-lrqdr5e3dq-rj.a.run.app
+schemes:
+  - https
+produces:
+  - application/json
+x-google-backend:
+  address: https://solver-api-lrqdr5e3dq-rj.a.run.app
+  protocol: h2
+paths:
+  /solver-results:
+    get:
+      description: Returns the test results for each tested chessboard size
+      responses:
+        '200':
+          description: Successful response
+          schema:
+            type: array
+            items:
+              type: object
+              required:
+                - chessboard_size
+                - number_of_solutions
+                - execution_time
+              properties:
+                chessboard_size:
+                  type: integer
+                number_of_solutions:
+                  type: integer
+                execution_time:
+                  type: number
