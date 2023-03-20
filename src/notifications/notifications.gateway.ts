@@ -6,12 +6,9 @@ import {
 } from '@nestjs/websockets';
 import { Server } from 'socket.io';
 
-export const NotificationsGatewayPort = Number.parseInt(
-  process.env.NOTIFICATIONS_WS_PORT ?? '3002',
-);
+const port = Number.parseInt(process.env.NOTIFICATIONS_WS_PORT ?? '3002');
 
-@WebSocketGateway(NotificationsGatewayPort, {
-  path: '/ws/',
+@WebSocketGateway(port, {
   cors: {
     origin: '*',
   },
@@ -19,10 +16,10 @@ export const NotificationsGatewayPort = Number.parseInt(
 export class NotificationsGateway {
   @WebSocketServer()
   server: Server;
+  static port = port;
 
   @SubscribeMessage('notifications')
   listenForMessages(@MessageBody() data: string) {
-    console.log(`Received notification: ${data}`);
     this.server.sockets.emit('notifications', data);
   }
 }
