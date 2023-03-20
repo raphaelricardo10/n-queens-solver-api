@@ -8,14 +8,9 @@ import { PushNotification } from 'src/notifications/notifications.interface';
 export class SolverResultsController {
   private socket: Socket;
   constructor(private readonly solverResultsService: SolverResultsService) {
-    this.socket = io(
-      `${Boolean(process.env.USE_HTTPS) ? 'https' : 'http'}://127.0.0.1:${
-        process.env.PORT ?? 3001
-      }`,
-      {
-        path: '/ws/notifications/',
-      },
-    );
+    this.socket = io(`http://127.0.0.1:${process.env.PORT ?? '3001'}`, {
+      path: '/ws/notifications/',
+    });
   }
 
   @Get()

@@ -12,9 +12,7 @@ async function bootstrap() {
   app.use(
     '/ws/notifications',
     createProxyMiddleware({
-      target: `${
-        Boolean(process.env.USE_HTTPS) ? 'https' : 'http'
-      }://127.0.0.1:${NotificationsGateway.port}/socket.io/`,
+      target: `http://127.0.0.1:${NotificationsGateway.port}/socket.io/`,
       changeOrigin: true,
     }),
   );
