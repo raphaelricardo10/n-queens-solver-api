@@ -36,6 +36,8 @@ jobs:
         region: ${{ secrets.GCP_REGION }}
         service: ${{ secrets.GCP_SERVICE_NAME }}
         image: gcr.io/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.DOCKER_IMAGE }}:latest
+        env_vars:
+          - USE_HTTPS=true
 
     - name: 'Use output'
       run: echo ${{ steps.deploy.outputs.url }}
